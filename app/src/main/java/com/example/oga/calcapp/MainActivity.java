@@ -22,10 +22,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // editTextの入力制限
         editNum1 = (EditText) findViewById(R.id.editNum1);
-        editNum1.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        editNum1.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
         editNum2 = (EditText) findViewById(R.id.editNum2);
-        editNum2.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        editNum2.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
         // 各buttonの動き
         Button btnPlus = (Button) findViewById(R.id.btnPlus);
@@ -71,7 +71,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else if (v.getId() == R.id.btnMulti) {
             answer = num1 * num2;
         } else {
-            answer = num1 / num2;
+            // 0が入っている場合は答えに0.0fを代入
+            if(num1 == 0.0f || num2 == 0.0f) {
+                answer = 0.0f;
+            } else {
+                answer = num1 / num2;
+            }
         }
 
         // Intentで値を渡す
